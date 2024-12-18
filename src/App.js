@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+/*import logo from './logo.svg';
 import './App.css';
 
 function App() {
@@ -18,6 +18,22 @@ function App() {
           Learn React
         </a>
       </header>
+    </div>
+  );
+}
+
+export default App;*/
+
+import Button from '@mui/material/Button';
+//import Navbar from './Components/AppBar'
+import SideBar from './Admin_Components/SideBar'
+//import { BrowserRouter, Routes, Route, Navigate, Router } from 'react-router-dom';
+//import Request from './Components/Request'
+
+function App() {
+  return (
+    <div className="App">
+      <SideBar />
     </div>
   );
 }
