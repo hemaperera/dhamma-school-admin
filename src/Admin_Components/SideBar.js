@@ -3,13 +3,14 @@ import React , { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom';
 
 
-//import UserDashboard from './Dashboard';
-import UserDashb from './Dashb';
+import UserDashboard from './Dashboard';
+import UserBookMgt from './BookMgt';
 import UserCatalog from './Catalog';
 import downloadImage from '../assets/download.png';
 
 import { extendTheme, styled } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
+import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 //import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 //import BarChartIcon from '@mui/icons-material/BarChart';
 //import DescriptionIcon from '@mui/icons-material/Description';
@@ -35,7 +36,7 @@ const NAVIGATION = [
 
   {
     segment: 'dashboard',
-    title: (<Link to="/Dashb" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Dashboard </Link>),
+    title: (<Link to="/Dashboard" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Dashboard </Link>),
     icon: <DashboardIcon />,
     path: './Dashb',
   },
@@ -43,8 +44,15 @@ const NAVIGATION = [
   {
     segment: 'Catalog',
     title: (<Link to="/Catalog" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Catalog </Link>),
-    icon: <DashboardIcon />,
+    icon: <FolderCopyIcon />,
     path: './Catalog',
+  },
+
+  {
+    segment: 'BookMgt',
+    title: (<Link to="/BookMgt" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Book Management </Link>),
+    icon: <FolderCopyIcon />,
+    path: './BookMgt',
   },
 
   /*{
@@ -188,8 +196,9 @@ export default function DashboardLayoutBasic(props)
       <DashboardLayout>
         <PageContainer>
             <Routes>
-                <Route path="/Dashb" element={<UserDashb />} />
+                <Route path="/Dashboard" element={<UserDashboard />} />
                 <Route path="/Catalog" element={<UserCatalog />} />
+                <Route path="/BookMgt" element={<UserBookMgt />} />
             </Routes>
         </PageContainer>
       </DashboardLayout>
