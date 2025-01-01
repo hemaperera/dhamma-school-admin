@@ -10,74 +10,64 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { DataGrid } from '@mui/x-data-grid';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import BookDetailsPopup from './BookDetailsPopup'; // Importing the View Popup Component
-import EditBookDetails from './EditBookDetails'; // Importing the Edit Popup Component
-import DeleteBookPopup from './DeleteBookPopup'; // Importing the Delete Popup Component
+import { useNavigate } from 'react-router-dom';
+import ViewDigitalBookPopup from './ViewDigitalBookPopup'; // Importing the View Popup Component
+import EditDigitalBookPopup from './EditDigitalBookPopup'; // Importing the Edit Popup Component
+import DeleteDigitalBookPopup from './DeleteDigitalBookPopup'; // Importing the Delete Popup Component
+import UploadDigitalBook from './UploadDigitalBook';
 
 // Dummy Data
-const dummyBooks = [
+const dummyDigitalBooks = [
   {
     id: 1,
-    image: 'https://via.placeholder.com/120x80',
-    name: 'Hibernate Core ~11th',
-    category: 'Educational',
+    name: 'React Essentials',
+    category: 'Programming',
     language: 'English',
-    availability: 'Available',
+    uploadDate: '2023-12-15',
+    downloadCount: 120,
   },
   {
     id: 2,
-    image: 'https://via.placeholder.com/120x80',
-    name: 'Java Fundamentals ~10th',
-    category: 'Educational',
+    name: 'Node.js Guide',
+    category: 'Web Development',
     language: 'English',
-    availability: 'Borrowed',
+    uploadDate: '2023-11-10',
+    downloadCount: 98,
   },
   {
     id: 3,
-    image: 'https://via.placeholder.com/120x80',
-    name: 'Clean Code',
-    category: 'Programming',
+    name: 'UI/UX Fundamentals',
+    category: 'Design',
     language: 'English',
-    availability: 'Available',
+    uploadDate: '2023-10-20',
+    downloadCount: 45,
   },
   {
     id: 4,
-    image: 'https://via.placeholder.com/120x80',
-    name: 'Data Structures in C++',
-    category: 'Technical',
+    name: 'Python Basics',
+    category: 'Programming',
     language: 'English',
-    availability: 'Borrowed',
+    uploadDate: '2023-09-25',
+    downloadCount: 150,
   },
 ];
 
-export default function BookManagement() {
+export default function DigitalBookInventory() {
   const [searchTerm, setSearchTerm] = useState('');
-  const [popupOpen, setPopupOpen] = useState(false);
+  const [viewPopupOpen, setViewPopupOpen] = useState(false);
   const [editPopupOpen, setEditPopupOpen] = useState(false);
   const [deletePopupOpen, setDeletePopupOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   // Columns definition for DataGrid
   const columns = [
     { field: 'id', headerName: 'ID', width: 90 },
-    {
-      field: 'image',
-      headerName: 'Image',
-      width: 120,
-      renderCell: (params) => (
-        <img
-          src={params.value}
-          alt="Book Thumbnail"
-          style={{ width: 80, height: 120, objectFit: 'cover' }}
-        />
-      ),
-    },
     { field: 'name', headerName: 'Name', width: 180 },
     { field: 'category', headerName: 'Category', width: 150 },
     { field: 'language', headerName: 'Language', width: 150 },
-    { field: 'availability', headerName: 'Availability', width: 150 },
+    { field: 'uploadDate', headerName: 'Upload Date', width: 150 },
+    { field: 'downloadCount', headerName: 'Download Count', width: 150 },
     {
       field: 'actions',
       headerName: 'Actions',
@@ -114,24 +104,25 @@ export default function BookManagement() {
   ];
 
   // Filter data based on search
-  const filteredBooks = dummyBooks.filter(
+  const filteredBooks = dummyDigitalBooks.filter(
     (book) =>
       book.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      book.category.toLowerCase().includes(searchTerm.toLowerCase())
+      book.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      book.language.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const rows = filteredBooks.map((book) => ({
     id: book.id,
-    image: book.image,
     name: book.name,
     category: book.category,
     language: book.language,
-    availability: book.availability,
+    uploadDate: book.uploadDate,
+    downloadCount: book.downloadCount,
   }));
 
-  // Handle edit, delete, and view actions
+  // Handle actions
   const handleEdit = (id) => {
-    const book = dummyBooks.find((b) => b.id === id);
+    const book = dummyDigitalBooks.find((b) => b.id === id);
     if (book) {
       setSelectedBook(book);
       setEditPopupOpen(true);
@@ -139,7 +130,7 @@ export default function BookManagement() {
   };
 
   const handleDelete = (id) => {
-    const book = dummyBooks.find((b) => b.id === id);
+    const book = dummyDigitalBooks.find((b) => b.id === id);
     if (book) {
       setSelectedBook(book);
       setDeletePopupOpen(true);
@@ -147,21 +138,15 @@ export default function BookManagement() {
   };
 
   const handleView = (id) => {
-    const book = dummyBooks.find((b) => b.id === id);
+    const book = dummyDigitalBooks.find((b) => b.id === id);
     if (book) {
-      setSelectedBook({
-        ...book,
-        authors: 'John Doe, Jane Smith',
-        location: 'Floor 1, Shelf 3, Row 5',
-        description: 'A detailed guide to Hibernate Core principles.',
-        dateEntered: '2023-01-15',
-      });
-      setPopupOpen(true);
+      setSelectedBook(book);
+      setViewPopupOpen(true);
     }
   };
 
-  const handleClosePopup = () => {
-    setPopupOpen(false);
+  const handleCloseViewPopup = () => {
+    setViewPopupOpen(false);
     setSelectedBook(null);
   };
 
@@ -170,14 +155,8 @@ export default function BookManagement() {
     setSelectedBook(null);
   };
 
-  const handleSaveEdit = (updatedBook) => {
-    console.log('Save updated book:', updatedBook);
-    setEditPopupOpen(false);
-    setSelectedBook(null);
-  };
-
   const handleConfirmDelete = (id) => {
-    console.log('Confirm delete book with ID:', id);
+    console.log('Confirm delete digital book with ID:', id);
     setDeletePopupOpen(false);
     setSelectedBook(null);
   };
@@ -186,13 +165,13 @@ export default function BookManagement() {
     <Box p={3}>
       {/* Header */}
       <Typography variant="h4" gutterBottom color="#873636">
-        Book Management
+        Digital Book Inventory
       </Typography>
 
       {/* Search Bar and Add Book Button */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={3}>
         <TextField
-          label="Search by Name or Category"
+          label="Search by Name, Category, or Language"
           variant="outlined"
           size="small"
           onChange={(e) => setSearchTerm(e.target.value)}
@@ -201,9 +180,9 @@ export default function BookManagement() {
         <Button
           variant="contained"
           sx={{ backgroundColor: '#873636', color: 'white', '&:hover': { backgroundColor: '#6b2a2a' } }}
-          onClick={() => navigate('/add-book')} // Navigate to AddBook page
+          onClick={() => navigate('/UploadDigitalBook')} // Navigate to AddDigitalBook page
         >
-          Add Book
+          Add Digital Book
         </Button>
       </Box>
 
@@ -215,32 +194,31 @@ export default function BookManagement() {
           pageSize={5}
           rowsPerPageOptions={[5, 10, 25]}
           pagination
-          rowHeight={160}
+          rowHeight={60}
         />
       </div>
 
-      {/* Book Details Popup */}
-      {selectedBook && popupOpen && (
-        <BookDetailsPopup
-          open={popupOpen}
-          handleClose={handleClosePopup}
+      {/* View Digital Book Popup */}
+      {selectedBook && viewPopupOpen && (
+        <ViewDigitalBookPopup
+          open={viewPopupOpen}
+          handleClose={handleCloseViewPopup}
           bookDetails={selectedBook}
         />
       )}
 
-      {/* Edit Book Popup */}
+      {/* Edit Digital Book Popup */}
       {selectedBook && editPopupOpen && (
-        <EditBookDetails
+        <EditDigitalBookPopup
           open={editPopupOpen}
           handleClose={handleCloseEditPopup}
           bookDetails={selectedBook}
-          handleSave={handleSaveEdit}
         />
       )}
 
-      {/* Delete Book Popup */}
+      {/* Delete Digital Book Popup */}
       {selectedBook && deletePopupOpen && (
-        <DeleteBookPopup
+        <DeleteDigitalBookPopup
           open={deletePopupOpen}
           handleClose={() => setDeletePopupOpen(false)}
           bookDetails={selectedBook}

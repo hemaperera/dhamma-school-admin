@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import { DataGrid, GridToolbarContainer, GridToolbarColumnsButton, GridToolbarFilterButton, GridToolbarExport, GridToolbarDensitySelector } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import BookDetailsPopup from './BookDetailsPopup'; // Import the popup component
+import BorrowDetailsPopup from './BorrowDetailsPopup'; // Import the popup component
 
 // Custom toolbar for DataGrid
 function CustomToolbar() {
@@ -133,7 +133,7 @@ export default function ToggleableTables() {
 
       {/* Popup */}
       {selectedRow && (
-        <BookDetailsPopup
+        <BorrowDetailsPopup
           open={popupOpen}
           handleClose={handleClosePopup}
           transactionDetails={selectedRow}

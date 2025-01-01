@@ -6,6 +6,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react
 import UserDashboard from './Dashboard';
 import UserBookMgt from './BookMgt';
 import UserCatalog from './Catalog';
+import AddBook from './AddBook';
+import DigitalBookInventory from './DigitalBookInventory';
+import UploadDigitalBook from './UploadDigitalBook';
+import BorrowingPage from './BorrowingPage';
 import downloadImage from '../assets/download.png';
 
 import { extendTheme, styled } from '@mui/material/styles';
@@ -38,21 +42,35 @@ const NAVIGATION = [
     segment: 'dashboard',
     title: (<Link to="/Dashboard" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Dashboard </Link>),
     icon: <DashboardIcon />,
-    path: './Dashb',
+    path: '/Dashb',
   },
 
   {
     segment: 'Catalog',
     title: (<Link to="/Catalog" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Catalog </Link>),
     icon: <FolderCopyIcon />,
-    path: './Catalog',
+    path: '/Catalog',
   },
 
   {
     segment: 'BookMgt',
-    title: (<Link to="/BookMgt" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Book Management </Link>),
+    title: (<Link to="/BookMgt" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Physical Book Management </Link>),
     icon: <FolderCopyIcon />,
-    path: './BookMgt',
+    path: '/BookMgt',
+  },
+
+  {
+    segment: 'DigitalBookInventory',
+    title: (<Link to="/DigitalBookInventory" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Digital Book Inventory </Link>),
+    icon: <FolderCopyIcon />,
+    path: '/DigitalBookInventory',
+  },
+
+  {
+    segment: 'BorrowingPage',
+    title: (<Link to="/BorrowingPage" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Borrowing Page </Link>),
+    icon: <FolderCopyIcon />,
+    path: '/BorrowingPage',
   },
 
   /*{
@@ -199,6 +217,10 @@ export default function DashboardLayoutBasic(props)
                 <Route path="/Dashboard" element={<UserDashboard />} />
                 <Route path="/Catalog" element={<UserCatalog />} />
                 <Route path="/BookMgt" element={<UserBookMgt />} />
+                <Route path="/add-book" element={<AddBook />} />
+                <Route path="/DigitalBookInventory" element={<DigitalBookInventory />} /> 
+                <Route path="/BorrowingPage" element={<BorrowingPage />} />
+                <Route path="/UploadDigitalBook" element={<UploadDigitalBook />} />
             </Routes>
         </PageContainer>
       </DashboardLayout>
