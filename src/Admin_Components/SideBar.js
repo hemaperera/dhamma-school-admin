@@ -9,8 +9,11 @@ import UserCatalog from './Catalog';
 import AddBook from './AddBook';
 import DigitalBookInventory from './DigitalBookInventory';
 import UploadDigitalBook from './UploadDigitalBook';
-import BorrowingPage from './BorrowingPage';
+import BookReturnPage from './BookReturnPage';
+//import BorrowingPage from './BorrowingPage';
+import LendingPage from './LendingPage';
 import downloadImage from '../assets/download.png';
+
 
 import { extendTheme, styled } from '@mui/material/styles';
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -66,11 +69,19 @@ const NAVIGATION = [
     path: '/DigitalBookInventory',
   },
 
+
   {
-    segment: 'BorrowingPage',
-    title: (<Link to="/BorrowingPage" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Borrowing Page </Link>),
+    segment: 'LendingPage',
+    title: (<Link to="/LendingPage" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Lending Page </Link>),
     icon: <FolderCopyIcon />,
-    path: '/BorrowingPage',
+    path: '/LendingPage',
+  },
+
+  {
+    segment: 'BookReturnPage',
+    title: (<Link to="/BookReturnPage" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>Book Return Page </Link>),
+    icon: <FolderCopyIcon />,
+    path: '/BookReturnPage',
   },
 
   /*{
@@ -219,8 +230,9 @@ export default function DashboardLayoutBasic(props)
                 <Route path="/BookMgt" element={<UserBookMgt />} />
                 <Route path="/add-book" element={<AddBook />} />
                 <Route path="/DigitalBookInventory" element={<DigitalBookInventory />} /> 
-                <Route path="/BorrowingPage" element={<BorrowingPage />} />
                 <Route path="/UploadDigitalBook" element={<UploadDigitalBook />} />
+                <Route path="/LendingPage" element={<LendingPage />} />
+                <Route path="/BookReturnPage" element={<BookReturnPage />} />
             </Routes>
         </PageContainer>
       </DashboardLayout>
